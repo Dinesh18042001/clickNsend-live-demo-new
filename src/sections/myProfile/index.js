@@ -24,14 +24,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Formik,useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import { useRouter } from "next/router";
-import { useSnackbar } from "notistack";  import Alert from '@mui/material/Alert';
+import { useSnackbar } from "notistack";
+import Alert from "@mui/material/Alert";
 import { isEmpty } from "lodash";
 import {
   FormControl,
   GoogleAutocomplete,
-  PasswordBox, TextBox
+  PasswordBox,
+  TextBox,
 } from "@/components/form";
 
 const Profile = ({ data, formik, loader, Content = null }) => {
@@ -43,7 +45,7 @@ const Profile = ({ data, formik, loader, Content = null }) => {
   };
 
   const handleCloseModal = () => {
-    formik.handleSubmit();
+    // formik.handleSubmit();
     setIsModalOpen(false);
   };
 
@@ -95,8 +97,7 @@ const Profile = ({ data, formik, loader, Content = null }) => {
                             />
                           </Box>
                           <CardContent>
-                             
-                             {/* remove profile image here */}
+                            {/* remove profile image here */}
 
                             {/* <Box sx={{ position: "relative", mt: "70px" }}>
                               <input
@@ -185,7 +186,7 @@ const Profile = ({ data, formik, loader, Content = null }) => {
                               </label>
                             </Box> */}
 
-                            <Box py={2} style={{ marginTop: '190px' }}>
+                            <Box py={2} style={{ marginTop: "190px" }}>
                               <TextBox
                                 size="small"
                                 fullWidth
@@ -290,40 +291,44 @@ const Profile = ({ data, formik, loader, Content = null }) => {
                                 </Box>
 
                                 <Box
-  sx={{
-    display: "flex !important",
-    flexDirection: "row-reverse !important",
-  }}
-  py={2}
-  onSubmit={formik.handleSubmit}
->
-  <GoogleAutocomplete
-    size="small"
-    fullWidth
-    labelname="Address" // Should be "labelName" instead of "labelname"
-    name="address"
-    value={formik?.values?.address}
-    onChange={(e) => {
-                                      formik.setFieldValue(
-                                        `address`,
-                                        e
-                                      );
+                                  sx={{
+                                    display: "flex !important",
+                                    flexDirection: "row-reverse !important",
+                                  }}
+                                  py={2}
+                                  onSubmit={formik.handleSubmit}
+                                >
+                                  <GoogleAutocomplete
+                                    size="small"
+                                    fullWidth
+                                    labelname="Address" // Should be "labelName" instead of "labelname"
+                                    name="address"
+                                    value={formik?.values?.address}
+                                    onChange={(e) => {
+                                      formik.setFieldValue(`address`, e);
                                     }}
-    onSelect={(address, lat, long) => {
-      console.log("onSelect:", address, lat, long);
-      formik.setFieldValue("address", address);
-      formik.setFieldValue("lat", lat); // Set lat if needed
-      formik.setFieldValue("long", long); // Set long if needed
-    }}
-    endIcon={
-      <IconButton
-        onClick={() => formik.setFieldValue("address", "")}
-      >
-        <Close fontSize="small" />
-      </IconButton>
-    }
-  />
-</Box>
+                                    onSelect={(address, lat, long) => {
+                                      console.log(
+                                        "onSelect:",
+                                        address,
+                                        lat,
+                                        long
+                                      );
+                                      formik.setFieldValue("address", address);
+                                      formik.setFieldValue("lat", lat); // Set lat if needed
+                                      formik.setFieldValue("long", long); // Set long if needed
+                                    }}
+                                    endIcon={
+                                      <IconButton
+                                        onClick={() =>
+                                          formik.setFieldValue("address", "")
+                                        }
+                                      >
+                                        <Close fontSize="small" />
+                                      </IconButton>
+                                    }
+                                  />
+                                </Box>
 
                                 <Modal
                                   open={isModalOpen}
@@ -400,6 +405,7 @@ const Profile = ({ data, formik, loader, Content = null }) => {
                                         </Grid>
                                       </Box>
                                     </Stack>
+
                                     <Stack direction="row" mt={2}>
                                       <Button
                                         type="submit"
@@ -410,6 +416,7 @@ const Profile = ({ data, formik, loader, Content = null }) => {
                                         Update Address
                                       </Button>
                                     </Stack>
+                                    
                                   </Box>
                                 </Modal>
 
@@ -464,8 +471,9 @@ const ChangePasswordModal = () => {
     },
     validate: (values) => {
       const errors = {};
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
-    
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
+
       if (!values.password) {
         errors.password = "Password is required";
       }
@@ -473,7 +481,8 @@ const ChangePasswordModal = () => {
       if (!values.new_password) {
         errors.new_password = "New password is required";
       } else if (!passwordRegex.test(values.new_password)) {
-        errors.new_password = "New password must be 8-15 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character";
+        errors.new_password =
+          "New password must be 8-15 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character";
       }
 
       if (!values.new_password_confirmation) {
@@ -594,8 +603,6 @@ const ChangePasswordModal = () => {
   const handleClose = () => setOpen(false);
   return (
     <Box>
-  
-      
       {/* <Button
         // color="dark"
         fullWidth
@@ -609,14 +616,14 @@ const ChangePasswordModal = () => {
         Change Password1
       </Button> */}
 
-<Button
+      <Button
         fullWidth
         variant="outlined"
         startIcon={<Iconify icon="carbon:password" />}
         onClick={handleOpen}
         sx={{
           fontWeight: 500,
-          whiteSpace: 'nowrap' // Keeps the text in a single line
+          whiteSpace: "nowrap", // Keeps the text in a single line
         }}
       >
         Change Password

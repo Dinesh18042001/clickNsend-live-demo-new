@@ -5,7 +5,7 @@ import { CenterFocusStrongOutlined } from '@mui/icons-material';
 
 export default function ViewInvoiceModal({ isOpen, onClose ,invoiceDetails}) {
   const invoiceRef = useRef();
-
+  console.log(invoiceDetails,"====>data")
   const handlePrint = useReactToPrint({
     content: () => invoiceRef.current,
   });
